@@ -105,4 +105,59 @@ class UsersController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+    
+    //LOGIN
+    public function login() {
+    
+        $this->viewBuilder()->layout('loginLayout');//usa o layout de login 
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            //dump($user['name']) or die();
+            //pega o nome vindo do post
+            $temp = $user['name'];
+
+            if ($user) {
+                $this->Auth->setUser($user);
+                //return $this->redirect(['controller' => 'noticias']);
+                
+                //busca no banco o usuário com o nome que veio do post
+                $usertemp = $this->Users->find('all', [
+                'conditions' => ['name' => $temp]
+                ])->first();//or all()
+                
+               // dump($usertemp->created) or die();
+                
+                //starta meu session
+                $session = $this->request->session();
+                //escreve o nome encontrado no banco dentro da session
+                $session->write('user',$usertemp->name);
+                $session->write('function',$usertemp->function);
+                $session->write('avatar',$usertemp->avatar);
+                $session->write('created',$usertemp->created);
+                    
+                return $this->redirect($this->Auth->redirectUrl());
+                
+            }
+            //bad login
+            $this->Flash->error(__('Não foi possivel logar-se'));
+        }
+    }
+    
+//LOGOUT
+    public function logout() {
+        //starta a session
+        $session = $this->request->session();
+       
+        $session->delete('user');
+        //destroi a session
+        $session->destroy();
+
+        $this->Flash->success(__('Volte sempre'));
+        
+        return $this->redirect($this->Auth->logout());
+    }
+    
+    public function profile() {
+        //the silent is gold
+    }
 }

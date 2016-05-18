@@ -29,7 +29,10 @@ desired effect
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-<?= $this->Flash->render() ?>
+    <section class="content-header">
+        <?= $this->Flash->render() ?>
+    </section>
+
 <?= $this->fetch('content') ?>
 </div>
 <!-- FIM - Content Wrapper. Contains page content -->

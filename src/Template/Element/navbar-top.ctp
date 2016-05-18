@@ -1,3 +1,5 @@
+<?php  $session = $this->request->session(); ?>
+
 <!-- Main Header -->
   <header class="main-header">
 
@@ -28,20 +30,19 @@
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <?= $this->Html->image('avatar.jpg', ['class'=>'user-image']) ?>
+              <?= $this->Html->image($session->read('avatar'), ['class'=>'user-image']) ?>
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">
-                  <?php $session = $this->request->session();
-                  echo $session->read('user');?>
+                  <?= $session->read('user');?>
               </span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <?= $this->Html->image('avatar.jpg', ['class'=>'img-circle']) ?>
+                <?= $this->Html->image($session->read('avatar'), ['class'=>'img-circle']) ?>
 
-                <p><?= $session->read('user'); ?> - Web Developer
-                  <small>Member since Nov. 2012</small>
+                    <p><?= $session->read('user'); ?> - <?= $session->read('function'); ?>
+                  <small>Member since - <?= $session->read('created'); ?></small>
                 </p>
               </li>
               <!-- Menu Body -->
