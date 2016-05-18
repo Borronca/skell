@@ -1,57 +1,97 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
-
-$cakeDescription = 'CakePHP: the rapid development php framework';
-?>
 <!DOCTYPE html>
 <html>
-<head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
-    <?= $this->Html->meta('icon') ?>
+<?php echo $this->element('head'); ?>
+<!--
+BODY TAG OPTIONS:
+=================
+Apply one or more of the following classes to get the
+desired effect
+|---------------------------------------------------------|
+| SKINS         | skin-blue                               |
+|               | skin-black                              |
+|               | skin-purple                             |
+|               | skin-yellow                             |
+|               | skin-red                                |
+|               | skin-green                              |
+|---------------------------------------------------------|
+|LAYOUT OPTIONS | fixed                                   |
+|               | layout-boxed                            |
+|               | layout-top-nav                          |
+|               | sidebar-collapse                        |
+|               | sidebar-mini                            |
+|---------------------------------------------------------|
+-->
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
 
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('cake.css') ?>
+<?php echo $this->element('navbar-top'); ?>
+<?php echo $this->element('navbar-left'); ?>
 
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
-</head>
-<body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
-            </li>
-        </ul>
-        <div class="top-bar-section">
-            <ul class="right">
-                <li><a target="_blank" href="http://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="http://api.cakephp.org/3.0/">API</a></li>
-            </ul>
-        </div>
-    </nav>
-    <?= $this->Flash->render() ?>
-    <div class="container clearfix">
-        <?= $this->fetch('content') ?>
-    </div>
-    <footer>
-    </footer>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+<?= $this->Flash->render() ?>
+<?= $this->fetch('content') ?>
+</div>
+<!-- FIM - Content Wrapper. Contains page content -->
+
+<?php echo $this->element('footer'); ?>
+<?php echo $this->element('sidebar-control'); ?>
+
+</div><!-- ./wrapper -->
+
+
+
+<!-- Aqui o script instanciado no head é carregado -->
+<?= $this->fetch('script') ?>
+
 </body>
 </html>
+
+<!-- AQUI O SCRIPT DE CONFIGURAÇÃO E TRADUÇÃO DO DATATABLES -->
+
+<script type="text/javascript" language="javascript" class="init">  
+$(document).ready(function() {
+    $('#geriruser1').DataTable( {
+        "language": {
+                    "decimal":        "",
+                    "emptyTable":     "Nenhum dado disponível na tabela",
+                    "info":           "Mostrando _PAGE_ de _PAGES_ páginas",
+                    "infoEmpty":      "Mostrando 0 de 0 registros",
+                    "infoFiltered":   "(filtrados de _MAX_ no total)",
+                    "infoPostFix":    "",
+                    "thousands":      ",",
+                    "lengthMenu":     "Registros: _MENU_",
+                    "loadingRecords": "Processando...",
+                    "processing":     "Processando...",
+                    "search":         "Procurar:",
+                    "zeroRecords":    "Nenhum registro foi encontrado",
+                    "paginate": {
+                        "first":      "Primeiro",
+                        "last":       "Último",
+                        "next":       "Próximo",
+                        "previous":   "Anterior"
+                    },
+                    "aria": {
+                        "sortAscending":  ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    }
+                }
+    } );
+} );
+</script>
+
+    <script>
+      $(function () {
+        $("#geriruser1").DataTable();
+        $('#geriruser2').DataTable({
+          "paging": true,
+          "responsive": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false
+        });
+      });
+    </script>
+
